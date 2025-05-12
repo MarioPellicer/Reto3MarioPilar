@@ -1,5 +1,6 @@
 package dao;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -56,7 +57,7 @@ public class ProductoDAO {
 			ResultSet rs = pst.executeQuery();
 			pst.setInt(1, idCategoria);
 			while(rs.next()) {
-				lista.add(new Producto(rs.getInt("idproducto"), new Categoria(rs.getInt(idCategoria), null), rs.getString("nombre"), rs.getDouble("precio"), rs.getString("descripcion"),
+				lista.add(new Producto(rs.getInt("idproducto"), new Categoria(rs.getInt("idCategoria"), null), rs.getString("nombre"), rs.getDouble("precio"), rs.getString("descripcion"),
 						rs.getString("color"), rs.getString("talla"), rs.getInt("stock")));
 			}
 			rs.close();
@@ -64,6 +65,37 @@ public class ProductoDAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
+			Conexion.cierraConexion();
+		}
+		return lista;
+	}
+	
+	/*pediremos por consola un nombre, una talla y un color. El usuario puede no
+	introducir nada en alguna de esas preguntas (pulsa intro sin escribir nada). Buscaremos los productos
+	que cumplan el filtro introducido y los mostraremos por consola. Ejemplo: si introduce sólo nombre,
+	buscaremos los que tengan ese nombre contenido, no tiene que ser igual (usamos % en el valor del
+	argumento que pasamos, no en el ?). Si introducen sólo en talla y color, los que tengan esa talla y ese
+	color.*/
+	public static List<Producto> buscar (Producto producto) {
+		List<Producto> lista = new ArrayList<Producto>();
+		try {
+			//abro conexion
+			Connection con = Conexion.abreConexion();
+			//creo insert
+			CallableStatement cs = con.prepareCall("CALL buscarProducto(?,?,?)");
+			cs.setString(1, producto.getNombre()); 
+			cs.setString(2, producto.getTalla()); 
+			cs.setString(3, producto.getColor()); 
+			cs.registerOutParameter(4, java.sql.Types.INTEGER); 
+			ResultSet rs = cs.executeQuery();
+			if (rs.next()) {
+				lista.add(new Producto(rs.getInt("idproducto"), new Categoria(rs.getInt("idCategoria"), null), rs.getString("nombre"), rs.getDouble("precio"), rs.getString("descripcion"),
+						rs.getString("color"), rs.getString("talla"), rs.getInt("stock")));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		finally {
 			Conexion.cierraConexion();
 		}
 		return lista;
