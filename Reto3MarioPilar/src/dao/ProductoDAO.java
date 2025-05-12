@@ -4,7 +4,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
+import clases.Categoria;
 import clases.Producto;
 import util.Conexion;
 
@@ -40,5 +43,29 @@ public class ProductoDAO {
 		finally {
 			Conexion.cierraConexion();
 		}
+	}
+	
+	/*mostraremos las categorías por consola, mostrando id y nombre, y le
+	pediremos al usuario que elija una. Mostraremos los productos de esa categoría.*/
+	public static List<Producto> selectCategoria(int idCategoria) {
+		List<Producto> lista = new ArrayList<Producto>();
+		try {
+			Connection con = Conexion.abreConexion();
+			PreparedStatement pst = con.prepareStatement("SELECT idProducto, idCategoria, nombre, precio, descripcion, "
+					+ "color, talla, stock FROM producto WHERE idCategoria = ?");
+			ResultSet rs = pst.executeQuery();
+			pst.setInt(1, idCategoria);
+			while(rs.next()) {
+				lista.add(new Producto(rs.getInt("idproducto"), new Categoria(rs.getInt(idCategoria), null), rs.getString("nombre"), rs.getDouble("precio"), rs.getString("descripcion"),
+						rs.getString("color"), rs.getString("talla"), rs.getInt("stock")));
+			}
+			rs.close();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			Conexion.cierraConexion();
+		}
+		return lista;
 	}
 }
