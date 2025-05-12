@@ -66,7 +66,7 @@ public class ClienteDAO {
 			pst.setInt(3, cliente.getCodigo());
 			pst.setInt(4, cliente.getIdCliente());
 			pst.execute();
-			
+			 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
