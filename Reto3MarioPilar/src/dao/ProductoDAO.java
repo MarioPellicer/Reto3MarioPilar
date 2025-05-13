@@ -100,4 +100,41 @@ public class ProductoDAO {
 		}
 		return lista;
 	}
+	
+	/*se mostrarán los productos cuyo stock sea menor de 5. Se pedirá por consola en cuántas
+	unidades queremos aumentarlo y actualizaremos el stock en la BD. Pero sólo se aumentarán los que
+	tengan stock menor de 5, no todos. Validar que la cantidad de stock a aumentar es mayor o igual de 0. Si es
+	cero no actualizar nada.*/
+	public static List<Producto> bajoStock() {
+		List<Producto> lista = new ArrayList<Producto>();
+		try {
+			Connection con = Conexion.abreConexion();
+			PreparedStatement pst = con.prepareStatement("SELECT idProducto, idCategoria, nombre, precio, descripcion, "
+					+ "color, talla, stock FROM producto WHERE stock <  5");
+			ResultSet rs = pst.executeQuery();
+			while(rs.next()) {
+				lista.add(new Producto(rs.getInt("idproducto"), new Categoria(rs.getInt("idCategoria"), null), rs.getString("nombre"), rs.getDouble("precio"), rs.getString("descripcion"),
+						rs.getString("color"), rs.getString("talla"), rs.getInt("stock")));
+			}
+			rs.close();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			Conexion.cierraConexion();
+		}
+		return lista;		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
