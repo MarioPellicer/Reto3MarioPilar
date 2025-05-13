@@ -18,9 +18,7 @@ public class ProductoDAO {
 	que el cliente elija una e inserta el producto en la BD.*/
 	public static void insertarProducto(Producto producto) {
 		try {
-			//abro conexion
 			Connection con = Conexion.abreConexion();
-			//creo insert
 			PreparedStatement pst = con.prepareStatement("INSERT INTO producto(idCategoria, nombre, precio, descripcion, color, talla, stock) VALUES (?,?,?,?,?,?,?)",
 					Statement.RETURN_GENERATED_KEYS);
 			pst.setInt(1, producto.getCategoria().getIdCategoria()); 
@@ -79,9 +77,7 @@ public class ProductoDAO {
 	public static List<Producto> buscar (Producto producto) {
 		List<Producto> lista = new ArrayList<Producto>();
 		try {
-			//abro conexion
 			Connection con = Conexion.abreConexion();
-			//creo insert
 			CallableStatement cs = con.prepareCall("CALL buscarProducto(?,?,?)");
 			cs.setString(1, producto.getNombre()); 
 			cs.setString(2, producto.getTalla()); 
@@ -126,7 +122,22 @@ public class ProductoDAO {
 		return lista;		
 	}
 	
-	
+	public static void subirStock(int num) {
+		if (num > 0) {
+			try {
+				Connection con = Conexion.abreConexion();
+				PreparedStatement pst = con.prepareStatement("UPDATE productos set stock = stock + ? WHERE stock < 5");
+				pst.setInt(1, num); 
+				pst.executeUpdate();
+							
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			finally {
+				Conexion.cierraConexion();
+			}
+		}
+	}
 	
 	
 	
