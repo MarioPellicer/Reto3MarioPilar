@@ -2,6 +2,8 @@ package main;
 
 import java.util.Scanner;
 
+import clases.Categoria;
+import dao.CategoriaDAO;
 import util.Funciones;
 
 public class Main {
@@ -15,6 +17,7 @@ public class Main {
 			switch (opcion) {
 			case 1:
 				menu1Mantenimiento(sc);
+				
 				break;
 			case 2:
 				menu2Catalogo(sc);
@@ -99,7 +102,11 @@ public class Main {
 					sc);
 			switch (Menu) {
 			case 1:
-
+				Categoria nuevaCate = new Categoria();
+				System.out.println("Indica el nombre de la nueva categoria");
+				String Nombre = sc.nextLine();
+				nuevaCate.setNombre(Nombre);
+				CategoriaDAO.gestionCategorias(nuevaCate);
 				break;
 			case 2:
 
