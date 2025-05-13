@@ -1,5 +1,37 @@
 package dao;
 
-public class PedidoDAO {
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
+import clases.Cliente;
+import clases.Pedido;
+import util.Conexion;
+
+public class PedidoDAO {
+	public static Pedido buscarCliente(Pedido pedido){
+		 Pedido pedidoNuevo = new Pedido();
+		 try(Connection con = Conexion.abreConexion())
+		 {
+		 	PreparedStatement stmt = con.prepareStatement("select pedidoproducto.unidades\r\n"
+		 			+"from pedido \r\n " 
+		 			+"inner join pedidoproducto on pedidoproducto.idpedido = pedidos.idpedido  \r\n "
+		 			+"where idcliente=? " );
+		 	stmt.setInt(1, pedido.getCliente().getCodigo());
+		 	ResultSet rs = stmt.executeQuery();
+		 	if(rs.next())
+		 	{    
+		 		pedidoNuevo=new Pedido(rs.getInt("idPedido"),new Cliente(),rs.getDouble("precioTotal"),rs.getString("direccionEnvio"),rs.getDate("fecha"));
+		 	}else {
+				return null;
+			}
+		 	rs.close();
+		 }catch (Exception ex){
+		 	ex.printStackTrace();
+		 }
+		 finally {
+			Conexion.cierraConexion();
+		}
+		return pedidoNuevo;
+	 }
 }
