@@ -1,5 +1,6 @@
 package main;
 
+import java.util.List;
 import java.util.Scanner;
 
 import clases.Categoria;
@@ -109,7 +110,13 @@ public class Main {
 				CategoriaDAO.gestionCategorias(nuevaCate);
 				break;
 			case 2:
-
+				
+				
+				for (Categoria categoria : CategoriaDAO.listaCategoria()) {
+					System.out.println(categoria);
+				}
+				Funciones.dimeString("introduce un id de la categoria", sc);
+				
 				break;
 			case 3:
 				do {
