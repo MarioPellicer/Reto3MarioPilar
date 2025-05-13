@@ -18,9 +18,7 @@ public class ProductoDAO {
 	que el cliente elija una e inserta el producto en la BD.*/
 	public static void insertarProducto(Producto producto) {
 		try {
-			//abro conexion
 			Connection con = Conexion.abreConexion();
-			//creo insert
 			PreparedStatement pst = con.prepareStatement("INSERT INTO producto(idCategoria, nombre, precio, descripcion, color, talla, stock) VALUES (?,?,?,?,?,?,?)",
 					Statement.RETURN_GENERATED_KEYS);
 			pst.setInt(1, producto.getCategoria().getIdCategoria()); 
@@ -79,9 +77,7 @@ public class ProductoDAO {
 	public static List<Producto> buscar (Producto producto) {
 		List<Producto> lista = new ArrayList<Producto>();
 		try {
-			//abro conexion
 			Connection con = Conexion.abreConexion();
-			//creo insert
 			CallableStatement cs = con.prepareCall("CALL buscarProducto(?,?,?)");
 			cs.setString(1, producto.getNombre()); 
 			cs.setString(2, producto.getTalla()); 
@@ -100,4 +96,56 @@ public class ProductoDAO {
 		}
 		return lista;
 	}
+	
+	/*se mostrarán los productos cuyo stock sea menor de 5. Se pedirá por consola en cuántas
+	unidades queremos aumentarlo y actualizaremos el stock en la BD. Pero sólo se aumentarán los que
+	tengan stock menor de 5, no todos. Validar que la cantidad de stock a aumentar es mayor o igual de 0. Si es
+	cero no actualizar nada.*/
+	public static List<Producto> bajoStock() {
+		List<Producto> lista = new ArrayList<Producto>();
+		try {
+			Connection con = Conexion.abreConexion();
+			PreparedStatement pst = con.prepareStatement("SELECT idProducto, idCategoria, nombre, precio, descripcion, "
+					+ "color, talla, stock FROM producto WHERE stock <  5");
+			ResultSet rs = pst.executeQuery();
+			while(rs.next()) {
+				lista.add(new Producto(rs.getInt("idproducto"), new Categoria(rs.getInt("idCategoria"), null), rs.getString("nombre"), rs.getDouble("precio"), rs.getString("descripcion"),
+						rs.getString("color"), rs.getString("talla"), rs.getInt("stock")));
+			}
+			rs.close();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			Conexion.cierraConexion();
+		}
+		return lista;		
+	}
+	
+	public static void subirStock(int num) {
+		if (num > 0) {
+			try {
+				Connection con = Conexion.abreConexion();
+				PreparedStatement pst = con.prepareStatement("UPDATE productos set stock = stock + ? WHERE stock < 5");
+				pst.setInt(1, num); 
+				pst.executeUpdate();
+							
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			finally {
+				Conexion.cierraConexion();
+			}
+		}
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
