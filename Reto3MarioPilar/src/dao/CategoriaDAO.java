@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import clases.Categoria;
-import clases.Producto;
 import util.Conexion;
 
 public class CategoriaDAO {
