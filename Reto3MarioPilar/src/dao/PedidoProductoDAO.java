@@ -22,7 +22,7 @@ public class PedidoProductoDAO {
 					+ "SELECT sum(unidades) FROM pedidoproducto group by idProducto order by sum(unidades) desc limit 1)");
 			ResultSet rs = pst.executeQuery();
 			while(rs.next()) {
-				lista.add(new PedidoProducto(0, null, new Producto(rs.getInt("idProducto"), null, rs.getString("nombre"), 0, null, null, null, 0), rs.getInt("unidades"), 0));
+				lista.add(new PedidoProducto(0, null, new Producto(rs.getInt("idProducto"), null, null, 0, null, null, null, 0), rs.getInt("sum(unidades)"), 0));
 			}
 			rs.close();
 			

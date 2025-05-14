@@ -3,9 +3,11 @@ package main;
 import java.util.Scanner;
 import clases.Categoria;
 import clases.Cliente;
+import clases.PedidoProducto;
 import clases.Producto;
 import dao.CategoriaDAO;
 import dao.ClienteDAO;
+import dao.PedidoProductoDAO;
 import dao.ProductoDAO;
 import util.Funciones;
 
@@ -43,16 +45,26 @@ public class Main {
 		int Menu=-1;
 		do {
 			Menu = Funciones.dimeEntero(
-					"introduce la opcion que deseas elegir: \n1-Bajo stock \n2- Pedidos por cliente \n3- Productos mas vendidos \n0-salir",
+					"introduce la opcion que deseas elegir: \n1-Bajo stock \n2-Pedidos por cliente \n3-Productos mas vendidos \n0-salir",
 					sc);
 			switch (Menu) {
 			case 1:
-				
+				for (Producto producto : ProductoDAO.bajoStock()) {
+					System.out.println(producto);
+				}
+				int aumento = Funciones.dimeEntero("¿En cuántas unidades quieres aumentar estos productos?", sc);
+				if (aumento > 0) {
+					ProductoDAO.subirStock(aumento);
+				}
 				break;
 			case 2:
 
 				break;
 			case 3:
+				for (PedidoProducto pedidoProducto : PedidoProductoDAO.masUnidades()) {
+					System.out.println(pedidoProducto);
+				}
+				break;
 			default:
 				break;
 			}
@@ -101,6 +113,11 @@ public class Main {
 				break;
 			case 2:
 				
+				Producto producto = new Producto(0, null, ProductoDAO.dimeString("Introduce un nombre (enter para no buscar por nombre)", sc), 0, null, ProductoDAO.dimeString("Introduce un color (enter para no buscar por color)", sc), ProductoDAO.dimeString("Introduce una talla (enter para no buscar por talla)", sc), 0);
+				System.out.println(ProductoDAO.buscar(producto).size());
+				for (Producto prod : ProductoDAO.buscar(producto)) {
+					System.out.println(prod);
+				}
 				break;
 			default:
 				break;
