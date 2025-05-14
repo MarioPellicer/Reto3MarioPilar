@@ -48,5 +48,25 @@ public class CategoriaDAO {
 		}
 		return lista;
 	}
+	
+	public static Categoria buscarCategoria(int idCategoria) {
+		Categoria categoria = null;
+		try {
+			Connection con = Conexion.abreConexion();
+			PreparedStatement pst = con.prepareStatement("SELECT idCategoria, nombre FROM categorias WHERE idCategoria = ?");
+			pst.setInt(1, idCategoria);
+			ResultSet rs = pst.executeQuery();
+			while(rs.next()) {
+				categoria = new Categoria(rs.getInt("idCategoria"), rs.getString("nombre"));
+			}
+			rs.close();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			Conexion.cierraConexion();
+		}
+		return categoria;
+	}
 }
 

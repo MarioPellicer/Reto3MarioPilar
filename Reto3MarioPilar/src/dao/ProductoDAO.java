@@ -51,9 +51,9 @@ public class ProductoDAO {
 		try {
 			Connection con = Conexion.abreConexion();
 			PreparedStatement pst = con.prepareStatement("SELECT idProducto, idCategoria, nombre, precio, descripcion, "
-					+ "color, talla, stock FROM producto WHERE idCategoria = ?");
-			ResultSet rs = pst.executeQuery();
+					+ "color, talla, stock FROM productos WHERE idCategoria = ?");
 			pst.setInt(1, idCategoria);
+			ResultSet rs = pst.executeQuery();
 			while(rs.next()) {
 				lista.add(new Producto(rs.getInt("idproducto"), new Categoria(rs.getInt("idCategoria"), null), rs.getString("nombre"), rs.getDouble("precio"), rs.getString("descripcion"),
 						rs.getString("color"), rs.getString("talla"), rs.getInt("stock")));
@@ -106,7 +106,7 @@ public class ProductoDAO {
 		try {
 			Connection con = Conexion.abreConexion();
 			PreparedStatement pst = con.prepareStatement("SELECT idProducto, idCategoria, nombre, precio, descripcion, "
-					+ "color, talla, stock FROM producto WHERE stock <  5");
+					+ "color, talla, stock FROM productos WHERE stock <  5");
 			ResultSet rs = pst.executeQuery();
 			while(rs.next()) {
 				lista.add(new Producto(rs.getInt("idproducto"), new Categoria(rs.getInt("idCategoria"), null), rs.getString("nombre"), rs.getDouble("precio"), rs.getString("descripcion"),
