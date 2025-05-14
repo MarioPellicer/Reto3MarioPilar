@@ -10,10 +10,7 @@ public class Producto {
 	private String color;
 	private String talla;
 	private int stock;
-	public Producto() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
+	
 	public Producto(int idproducto, Categoria categoria, String nombre, double precio, String descripcion, String color,
 			String talla, int stock) {
 		super();

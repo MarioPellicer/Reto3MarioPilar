@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import clases.Categoria;
+import clases.Cliente;
 import clases.Producto;
 import util.Conexion;
 
@@ -67,7 +68,29 @@ public class ProductoDAO {
 		}
 		return lista;
 	}
-	
+	/*	pidiendo nombres de
+	productos. Buscamos en la base de datos si hay algún producto con ese nombre y si existe, pediremos
+	cuántas unidades queremos de ese producto.*/
+	public static Producto selectNombre(String nombre) {
+		Producto nuevoProducto=null;
+		try {
+			Connection con = Conexion.abreConexion();
+			PreparedStatement pst = con.prepareStatement("SELECT idProducto, idCategoria, nombre, precio, descripcion, "
+					+ "color, talla, stock FROM productos WHERE nombre = ?");
+			pst.setString(1, nombre);
+			ResultSet rs = pst.executeQuery();
+			if(rs.next()) {
+				nuevoProducto=new Producto(rs.getInt("idProducto"),new Categoria(),rs.getString("nombre"),rs.getDouble("precio"),rs.getString("descripcion"),rs.getString("color"),rs.getString("talla"),rs.getInt("stock"));
+			}
+			rs.close();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			Conexion.cierraConexion();
+		}
+		return nuevoProducto;
+	}
 	/*pediremos por consola un nombre, una talla y un color. El usuario puede no
 	introducir nada en alguna de esas preguntas (pulsa intro sin escribir nada). Buscaremos los productos
 	que cumplan el filtro introducido y los mostraremos por consola. Ejemplo: si introduce sÃ³lo nombre,

@@ -33,6 +33,7 @@ public class PedidoProductoDAO {
 		}
 		return lista;
 	}
+	public static 
 	
 	
 	
