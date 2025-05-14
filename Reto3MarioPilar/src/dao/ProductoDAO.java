@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 import clases.Categoria;
 import clases.Producto;
@@ -82,9 +83,8 @@ public class ProductoDAO {
 			cs.setString(1, producto.getNombre()); 
 			cs.setString(2, producto.getTalla()); 
 			cs.setString(3, producto.getColor()); 
-			cs.registerOutParameter(4, java.sql.Types.INTEGER); 
 			ResultSet rs = cs.executeQuery();
-			if (rs.next()) {
+			while (rs.next()) {
 				lista.add(new Producto(rs.getInt("idproducto"), new Categoria(rs.getInt("idCategoria"), null), rs.getString("nombre"), rs.getDouble("precio"), rs.getString("descripcion"),
 						rs.getString("color"), rs.getString("talla"), rs.getInt("stock")));
 			}
@@ -140,7 +140,14 @@ public class ProductoDAO {
 	}
 	
 	
-	
+	public static String dimeString(String orden, Scanner sc)
+	{
+		String s="";
+			System.out.println(orden);
+			s = sc.nextLine();
+
+		return s;
+	}
 	
 	
 	

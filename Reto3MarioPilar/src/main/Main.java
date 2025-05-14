@@ -101,6 +101,11 @@ public class Main {
 				break;
 			case 2:
 				
+				Producto producto = new Producto(0, null, ProductoDAO.dimeString("Introduce un nombre (enter para no buscar por nombre)", sc), 0, null, ProductoDAO.dimeString("Introduce un color (enter para no buscar por color)", sc), ProductoDAO.dimeString("Introduce una talla (enter para no buscar por talla)", sc), 0);
+				System.out.println(ProductoDAO.buscar(producto).size());
+				for (Producto prod : ProductoDAO.buscar(producto)) {
+					System.out.println(prod);
+				}
 				break;
 			default:
 				break;
