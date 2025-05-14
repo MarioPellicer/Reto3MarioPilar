@@ -1,10 +1,11 @@
 package main;
 
 import java.util.Scanner;
-
 import clases.Categoria;
+import clases.Cliente;
 import clases.Producto;
 import dao.CategoriaDAO;
+import dao.ClienteDAO;
 import dao.ProductoDAO;
 import util.Funciones;
 
@@ -127,7 +128,9 @@ public class Main {
 							sc);
 					switch (subMenu) {
 					case 1:
-
+						Cliente nuevoCliente = new Cliente(Funciones.dimeString("introduce un nombre para un nnuevo cliente", sc),
+								Funciones.dimeString("introduce una direccion para un nuevo cliente", sc),Funciones.dimeEntero("introduce un codigo para un nuevo cliente", sc));
+						ClienteDAO.altaDeNuevos(nuevoCliente);
 						break;
 					case 2:
 
