@@ -30,14 +30,14 @@ public class ClienteDAO {
 			Conexion.cierraConexion();
 		}
 	 }
-	public static Cliente buscarCliente(Cliente cliente){
+	public static Cliente buscarCliente(int codigo){
 		 Cliente clienteNuevo = new Cliente();
 		 try(Connection con = Conexion.abreConexion())
 		 {
 		 	PreparedStatement stmt = con.prepareStatement("select * \r\n"
 		 			+"from clientes \r\n " 
 		 			+"where codigo=?  \r\n " );
-		 	stmt.setInt(1, cliente.getCodigo());
+		 	stmt.setInt(1, codigo);
 		 	ResultSet rs = stmt.executeQuery();
 		 	if(rs.next())
 		 	{    
@@ -54,15 +54,15 @@ public class ClienteDAO {
 		}
 		return clienteNuevo;
 	 }
-	public static void actualizaCliente(Cliente cliente)
+	public static void actualizaCliente(Cliente cliente,int codigo)
 	{
 		try {
 			Connection con = Conexion.abreConexion();	
-			PreparedStatement pst = con.prepareStatement("update clientes set nombre=?, direccion=?,codigo=? where idCliente=?");
+			PreparedStatement pst = con.prepareStatement("update clientes set nombre=?, direccion=?,codigo=? where codigo=?");
 			pst.setString(1, cliente.getNombre());
 			pst.setString(2, cliente.getDireccion());
 			pst.setInt(3, cliente.getCodigo());
-			pst.setInt(4, cliente.getIdCliente());
+			pst.setInt(4, codigo);
 			pst.execute();
 			 
 		} catch (Exception e) {

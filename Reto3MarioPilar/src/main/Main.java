@@ -122,18 +122,28 @@ public class Main {
 				ProductoDAO.insertarProducto(producto);
 				break;
 			case 3:
+				Cliente nuevoCliente=null;
 				do {
 					subMenu = Funciones.dimeEntero(
 							"introduce la opcion que deseas elegir: \n1-Alta de nuevos \n2-Busqueda por codigo \n0-salir",
 							sc);
 					switch (subMenu) {
 					case 1:
-						Cliente nuevoCliente = new Cliente(Funciones.dimeString("introduce un nombre para un nnuevo cliente", sc),
+						 nuevoCliente = new Cliente(Funciones.dimeString("introduce un nombre para un nnuevo cliente", sc),
 								Funciones.dimeString("introduce una direccion para un nuevo cliente", sc),Funciones.dimeEntero("introduce un codigo para un nuevo cliente", sc));
 						ClienteDAO.altaDeNuevos(nuevoCliente);
 						break;
 					case 2:
-
+						int codigo = Funciones.dimeEntero("introduce un codigo de un cliente", sc);
+						 nuevoCliente = ClienteDAO.buscarCliente(codigo);
+						 if (nuevoCliente!=null) {
+							System.out.println(nuevoCliente);
+							nuevoCliente = new Cliente(Funciones.dimeString("introduce un nombre para un nuevo cliente", sc),
+									Funciones.dimeString("introduce una direccion para un nuevo cliente", sc),Funciones.dimeEntero("introduce un codigo para un nuevo cliente", sc));
+							ClienteDAO.actualizaCliente(nuevoCliente,codigo);
+						}else {
+							System.out.println("el codgo no existe");
+						}
 						break;
 					default:
 						break;
