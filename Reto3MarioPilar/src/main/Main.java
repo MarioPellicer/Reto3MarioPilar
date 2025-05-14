@@ -82,14 +82,25 @@ public class Main {
 		int Menu=-1;
 		do {
 			Menu = Funciones.dimeEntero(
-					"introduce la opcion que deseas elegir: \n1-Listar Productos por categoria \n2- Buscar Productos \n0-salir",
+					"introduce la opcion que deseas elegir: \n1-Listar Productos por categoria \n2-Buscar Productos \n0-salir",
 					sc);
 			switch (Menu) {
 			case 1:
+				for (Categoria categoria : CategoriaDAO.listaCategoria()) {
+					System.out.println(categoria);
+				}	
+				int idCat = Funciones.dimeEntero("Elige una categoría por su id", sc);
+				if (CategoriaDAO.buscarCategoria(idCat) != null) {
+					for (Producto prod : ProductoDAO.selectCategoria(idCat)) {
+					System.out.println(prod);
+					}
+				} else {
+					System.out.println("No hay categoria con idCategoria = " + idCat);
+				}
 				
 				break;
 			case 2:
-
+				
 				break;
 			default:
 				break;
