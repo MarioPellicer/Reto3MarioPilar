@@ -47,12 +47,20 @@ public class Main {
 					sc);
 			switch (Menu) {
 			case 1:
-				
+				for (Producto producto : ProductoDAO.bajoStock()) {
+					System.out.println(producto);
+				}
+				int aumento = Funciones.dimeEntero("¿En cuántas unidades quieres aumentar estos productos?", sc);
+				if (aumento > 0) {
+					ProductoDAO.subirStock(aumento);
+				}
 				break;
 			case 2:
 
 				break;
 			case 3:
+				
+				break;
 			default:
 				break;
 			}
