@@ -19,7 +19,7 @@ public class ProductoDAO {
 	public static void insertarProducto(Producto producto) {
 		try {
 			Connection con = Conexion.abreConexion();
-			PreparedStatement pst = con.prepareStatement("INSERT INTO producto(idCategoria, nombre, precio, descripcion, color, talla, stock) VALUES (?,?,?,?,?,?,?)",
+			PreparedStatement pst = con.prepareStatement("INSERT INTO productos(idCategoria, nombre, precio, descripcion, color, talla, stock) VALUES (?,?,?,?,?,?,?)",
 					Statement.RETURN_GENERATED_KEYS);
 			pst.setInt(1, producto.getCategoria().getIdCategoria()); 
 			pst.setString(2, producto.getNombre()); 
