@@ -3,9 +3,11 @@ package main;
 import java.util.Scanner;
 import clases.Categoria;
 import clases.Cliente;
+import clases.PedidoProducto;
 import clases.Producto;
 import dao.CategoriaDAO;
 import dao.ClienteDAO;
+import dao.PedidoProductoDAO;
 import dao.ProductoDAO;
 import util.Funciones;
 
@@ -43,7 +45,7 @@ public class Main {
 		int Menu=-1;
 		do {
 			Menu = Funciones.dimeEntero(
-					"introduce la opcion que deseas elegir: \n1-Bajo stock \n2- Pedidos por cliente \n3- Productos mas vendidos \n0-salir",
+					"introduce la opcion que deseas elegir: \n1-Bajo stock \n2-Pedidos por cliente \n3-Productos mas vendidos \n0-salir",
 					sc);
 			switch (Menu) {
 			case 1:
@@ -59,7 +61,9 @@ public class Main {
 
 				break;
 			case 3:
-				
+				for (PedidoProducto pedidoProducto : PedidoProductoDAO.masUnidades()) {
+					System.out.println(pedidoProducto);
+				}
 				break;
 			default:
 				break;
