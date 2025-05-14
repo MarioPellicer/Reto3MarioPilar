@@ -4,7 +4,9 @@ import java.util.List;
 import java.util.Scanner;
 
 import clases.Categoria;
+import clases.Cliente;
 import dao.CategoriaDAO;
+import dao.ClienteDAO;
 import util.Funciones;
 
 public class Main {
@@ -125,7 +127,7 @@ public class Main {
 							sc);
 					switch (subMenu) {
 					case 1:
-
+					
 						break;
 					case 2:
 
