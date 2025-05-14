@@ -1,10 +1,11 @@
 package main;
 
-import java.util.List;
 import java.util.Scanner;
 
 import clases.Categoria;
+import clases.Producto;
 import dao.CategoriaDAO;
+import dao.ProductoDAO;
 import util.Funciones;
 
 public class Main {
@@ -115,8 +116,9 @@ public class Main {
 				for (Categoria categoria : CategoriaDAO.listaCategoria()) {
 					System.out.println(categoria);
 				}
-				Funciones.dimeString("introduce un id de la categoria", sc);
-				
+				Producto producto = new Producto(0, new Categoria(Funciones.dimeEntero("introduce un id de la categoria", sc), null), Funciones.dimeString("Nombre:", sc), Funciones.dimeDouble("Precio:", sc), 
+										Funciones.dimeString("Descripcion:", sc), Funciones.dimeString("Talla:", sc), Funciones.dimeString("Color:", sc), Funciones.dimeEntero("Stock:", sc));
+				ProductoDAO.insertarProducto(producto);
 				break;
 			case 3:
 				do {
