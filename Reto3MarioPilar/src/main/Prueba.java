@@ -2,10 +2,9 @@ package main;
 
 import java.util.Scanner;
 
-import clases.Categoria;
 import clases.Cliente;
+import clases.PedidoProducto;
 import clases.Producto;
-import dao.CategoriaDAO;
 import dao.ClienteDAO;
 import dao.ProductoDAO;
 import util.Funciones;
@@ -22,17 +21,29 @@ public class Prueba {
 			try {
 				int codigo = Funciones.dimeEntero("introduce un codigo de un cliente", sc);
 				nuevoCliente = ClienteDAO.buscarCliente(codigo);
-				System.out.println(nuevoCliente.getNombre());
+				System.out.println(nuevoCliente.getNombre() + ", " + nuevoCliente.getCodigo());
 			} catch (Exception e) {
-				System.out.println("introduce un codigo ");
+				System.out.println("no existe ese cliente ");
 			}
 		} while (!(nuevoCliente!=null));
+		
+		PedidoProducto nuevoPedidoProducto = new PedidoProducto();
+		
+		String nombre = "";
 		do {
-			String nombre = Funciones.dimeString("introduce un nombre de un producto", sc);
-					nuevoProducto = ProductoDAO.selectNombre(nombre);
+			nombre = Funciones.dimeString("introduce un nombre de un producto ('fin' para terminar)", sc);
+			nuevoProducto = ProductoDAO.selectNombre(nombre);
 				if (nuevoProducto!=null) {
-					
-					System.out.println(nuevoProducto);
+					//añado producto
+					nuevoPedidoProducto.setProducto(nuevoProducto);
+					int unidades = Funciones.dimeEntero("¿Cuantas unidades quieres?", sc);
+					if (unidades <= nuevoProducto.getStock()) {
+						//añado unidades pedidas
+						nuevoPedidoProducto.setUnidades(unidades);
+					} else {
+						//añado todo el stock
+						nuevoPedidoProducto.setUnidades(nuevoProducto.getStock());
+					}
 					break;
 				} else {
 					System.out.println("no existe");
@@ -40,7 +51,7 @@ public class Prueba {
 				
 			
 			
-		} while (true);
+		} while (nombre.equals("fin"));
 	
 		
 		

@@ -10,7 +10,6 @@ import java.util.List;
 import java.util.Scanner;
 
 import clases.Categoria;
-import clases.Cliente;
 import clases.Producto;
 import util.Conexion;
 
@@ -70,8 +69,8 @@ public class ProductoDAO {
 		return lista;
 	}
 	/*	pidiendo nombres de
-	productos. Buscamos en la base de datos si hay algún producto con ese nombre y si existe, pediremos
-	cuántas unidades queremos de ese producto.*/
+	productos. Buscamos en la base de datos si hay algï¿½n producto con ese nombre y si existe, pediremos
+	cuï¿½ntas unidades queremos de ese producto.*/
 	public static Producto selectNombre(String nombre) {
 		Producto nuevoProducto=null;
 		try {
