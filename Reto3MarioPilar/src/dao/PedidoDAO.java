@@ -67,81 +67,6 @@ public class PedidoDAO {
 		return pedidoNuevo;
 	 }
 	
-<<<<<<< HEAD
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-=======
->>>>>>> branch 'main' of https://github.com/MarioPellicer/Reto3MarioPilar.git
 	public static List<Pedido> buscarClienteId(int idCliente){
 		 List<Pedido> lista = new ArrayList<Pedido>();
 		 try(Connection con = Conexion.abreConexion())
@@ -170,10 +95,8 @@ public class PedidoDAO {
 		}
 		return lista;
 	 }
-<<<<<<< HEAD
-
-=======
->>>>>>> branch 'main' of https://github.com/MarioPellicer/Reto3MarioPilar.git
+	
+	
 	public static void insertarPedido(Pedido pedido) {
 		try {
 			Connection con = Conexion.abreConexion();
@@ -198,8 +121,4 @@ public class PedidoDAO {
 			Conexion.cierraConexion();
 		}
 	}
-<<<<<<< HEAD
-
-=======
->>>>>>> branch 'main' of https://github.com/MarioPellicer/Reto3MarioPilar.git
 }
