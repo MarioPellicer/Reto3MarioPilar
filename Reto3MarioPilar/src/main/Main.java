@@ -52,12 +52,10 @@ public class Main {
 			case 1:
 				for (Producto producto : ProductoDAO.bajoStock()) {
 					System.out.println(producto);
-				}
-				int aumento = Funciones.dimeEntero("¿En cuántas unidades quieres aumentar estos productos?", sc);
+				} int aumento = Funciones.dimeEntero("¿En cuántas unidades quieres aumentar estos productos?", sc);
 				if (aumento > 0) {
 					ProductoDAO.subirStock(aumento);
-				}
-				break;
+				} break;
 			case 2:
 				for (Pedido pedido : PedidoDAO.buscarClienteId(Menu)) {
 					
@@ -66,8 +64,7 @@ public class Main {
 			case 3:
 				for (PedidoProducto pedidoProducto : PedidoProductoDAO.masUnidades()) {
 					System.out.println(pedidoProducto);
-				}
-				break;
+				} break;
 			default:
 				break;
 			}
@@ -85,14 +82,12 @@ public class Main {
 				
 				break;
 			case 2:
-				
 				for (PedidoProducto pedido : PedidoProductoDAO.verPedidos()) {
 					System.out.println(pedido.getPedido().getFecha()+","+pedido.getPedido().getCliente().getNombre()+","+
 							pedido.getPedido().getPrecioTotal()+","+pedido.getPedido().getCliente().getDireccion()+","
 							+pedido.getProducto().getCategoria()+","+pedido.getProducto().getNombre()+","+pedido.getUnidades());
 					System.out.println(pedido.getPedido().getCliente().getNombre());
-				}
-				break;
+				} break;
 			default:
 				break;
 			}
