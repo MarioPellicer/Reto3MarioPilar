@@ -23,6 +23,10 @@ public class Producto {
 		this.talla = talla;
 		this.stock = stock;
 	}
+	public Producto() {
+		// TODO Auto-generated constructor stub
+	}
+	
 	public int getIdproducto() {
 		return idproducto;
 	}

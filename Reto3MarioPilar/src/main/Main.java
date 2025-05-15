@@ -3,10 +3,12 @@ package main;
 import java.util.Scanner;
 import clases.Categoria;
 import clases.Cliente;
+import clases.Pedido;
 import clases.PedidoProducto;
 import clases.Producto;
 import dao.CategoriaDAO;
 import dao.ClienteDAO;
+import dao.PedidoDAO;
 import dao.PedidoProductoDAO;
 import dao.ProductoDAO;
 import util.Funciones;
@@ -22,7 +24,6 @@ public class Main {
 			switch (opcion) {
 			case 1:
 				menu1Mantenimiento(sc);
-				
 				break;
 			case 2:
 				menu2Catalogo(sc);
@@ -58,7 +59,9 @@ public class Main {
 				}
 				break;
 			case 2:
-
+				for (Pedido pedido : PedidoDAO.buscarClienteId(Menu)) {
+					
+				}
 				break;
 			case 3:
 				for (PedidoProducto pedidoProducto : PedidoProductoDAO.masUnidades()) {
@@ -82,7 +85,13 @@ public class Main {
 				
 				break;
 			case 2:
-
+				
+				for (PedidoProducto pedido : PedidoProductoDAO.verPedidos()) {
+					System.out.println(pedido.getPedido().getFecha()+","+pedido.getPedido().getCliente().getNombre()+","+
+							pedido.getPedido().getPrecioTotal()+","+pedido.getPedido().getCliente().getDireccion()+","
+							+pedido.getProducto().getCategoria()+","+pedido.getProducto().getNombre()+","+pedido.getUnidades());
+					System.out.println(pedido.getPedido().getCliente().getNombre());
+				}
 				break;
 			default:
 				break;
