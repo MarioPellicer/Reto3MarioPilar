@@ -58,7 +58,7 @@ public class Main {
 				} break;
 			case 2:
 				int idCliente = Funciones.dimeEntero("introudce un id de un cliente", sc);
-				for (Pedido pedido : PedidoDAO.buscarClienteId(Menu)) {
+				for (Pedido pedido : PedidoDAO.buscarClienteId(idCliente)) {
 					System.out.println(pedido);
 				}
 				break;
@@ -80,7 +80,7 @@ public class Main {
 					sc);
 			switch (Menu) {
 			case 1:
-				
+				Prueba.crearPedido(sc);
 				break;
 			case 2:
 				for (PedidoProducto pedido : PedidoProductoDAO.verPedidos()) {
