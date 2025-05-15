@@ -54,4 +54,7 @@ public class PedidoProducto {
 		return producto.getIdproducto()	+ ", " + unidades + " unidades";
 	}
 	
+	public void calcularPrecio() {
+		this.precio = producto.getPrecio()*unidades;
+	}
 }
