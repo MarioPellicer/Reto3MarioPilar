@@ -147,8 +147,8 @@ public class PedidoProductoDAO {
 		 	while(rs.next())
 		 	{    
 		 		lista.add(new PedidoProducto(0,new Pedido(0,new Cliente(0,
-		 				rs.getString("nombre"),"",0),rs.getDouble("precioTotal"),rs.getString("direccionEnvio"),
-		 				rs.getDate("fecha")),new Producto(0,new Categoria(0,rs.getString("nombre")),rs.getString("nombre"),0,"","","",0),
+		 				rs.getString("nombreCliente"),"",0),rs.getDouble("precioTotal"),rs.getString("direccionEnvio"),
+		 				rs.getDate("fecha")),new Producto(0,new Categoria(0,rs.getString("nombreCategoria")),rs.getString("nombreProductos"),0,"","","",0),
 		 				rs.getInt("unidades"),rs.getDouble("precioTotal")));
 		 	}
 		 	rs.close();

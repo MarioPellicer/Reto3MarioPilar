@@ -59,8 +59,9 @@ public class Main {
 				}
 				break;
 			case 2:
+				int idCliente = Funciones.dimeEntero("introudce un id de un cliente", sc);
 				for (Pedido pedido : PedidoDAO.buscarClienteId(Menu)) {
-					
+					System.out.println(pedido);
 				}
 				break;
 			case 3:
@@ -90,7 +91,6 @@ public class Main {
 					System.out.println(pedido.getPedido().getFecha()+","+pedido.getPedido().getCliente().getNombre()+","+
 							pedido.getPedido().getPrecioTotal()+","+pedido.getPedido().getCliente().getDireccion()+","
 							+pedido.getProducto().getCategoria()+","+pedido.getProducto().getNombre()+","+pedido.getUnidades());
-					System.out.println(pedido.getPedido().getCliente().getNombre());
 				}
 				break;
 			default:
