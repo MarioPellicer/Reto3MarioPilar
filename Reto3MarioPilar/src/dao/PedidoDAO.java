@@ -10,7 +10,6 @@ import java.util.List;
 
 import clases.Cliente;
 import clases.Pedido;
-import clases.PedidoProducto;
 import util.Conexion;
 import util.Funciones;
 
@@ -68,78 +67,6 @@ public class PedidoDAO {
 		return pedidoNuevo;
 	 }
 	
-<<<<<<< HEAD
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	public static List<Pedido> buscarClienteId(int idCliente){
 		 List<Pedido> lista = new ArrayList<Pedido>();
 		 try(Connection con = Conexion.abreConexion())
@@ -167,7 +94,6 @@ public class PedidoDAO {
 		}
 		return lista;
 	 }
-=======
 	public static void insertarPedido(Pedido pedido) {
 		try {
 			Connection con = Conexion.abreConexion();
@@ -192,5 +118,4 @@ public class PedidoDAO {
 			Conexion.cierraConexion();
 		}
 	}
->>>>>>> branch 'main' of https://github.com/MarioPellicer/Reto3MarioPilar.git
 }
