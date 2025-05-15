@@ -102,7 +102,7 @@ public class PedidoDAO {
 			pst.setInt(1, pedido.getCliente().getIdCliente()); 
 			pst.setDouble(2, pedido.getPrecioTotal()); 
 			pst.setString(3, pedido.getDireccionEnvio()); 
-			pst.setString(4, Funciones.convierte_Date_a_String(pedido.getFecha())); 
+			pst.setDate(4, Funciones.convierteFecha(pedido.getFecha())); 
 			pst.execute();
 			ResultSet rs = pst.getGeneratedKeys();
 			//recorrer el ResultSet
