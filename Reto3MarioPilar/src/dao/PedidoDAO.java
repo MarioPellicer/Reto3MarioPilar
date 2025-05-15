@@ -67,12 +67,88 @@ public class PedidoDAO {
 		return pedidoNuevo;
 	 }
 	
+<<<<<<< HEAD
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+=======
+>>>>>>> branch 'main' of https://github.com/MarioPellicer/Reto3MarioPilar.git
 	public static List<Pedido> buscarClienteId(int idCliente){
 		 List<Pedido> lista = new ArrayList<Pedido>();
 		 try(Connection con = Conexion.abreConexion())
 		 {
-		 	PreparedStatement stmt = con.prepareStatement("select * \r\n"
+		 	PreparedStatement stmt = con.prepareStatement("select pedidos.fecha,pedidos.precioTotal,pedidos.direccionEnvio,productos.nombre as 'nombreProductos',p.unidades \r\n"
 		 			+"from clientes \r\n " 
+		 			+"inner join pedidos on clientes.idcliente = pedidos.idcliente\r\n"
 		 			+ "inner join pedidoproducto p on pedidos.idpedido = p.idpedido \r\n" 
 		 			+ "inner join productos on p.idproducto = productos.idproducto \r\n"
 		 			+ "inner join clientes c on pedidos.idcliente = c.idcliente"
@@ -81,8 +157,8 @@ public class PedidoDAO {
 		 	ResultSet rs = stmt.executeQuery();
 		 	while(rs.next())
 		 	{    
-		 		lista.add(new Pedido(rs.getInt("idPedido"),new Cliente(rs.getInt("idCliente"),
-		 				rs.getString("nombre"),rs.getString("direccion"),rs.getInt("codigo")),rs.getDouble("precioTotal"),rs.getString("direccionEnvio"),
+		 		lista.add(new Pedido(rs.getInt(0),new Cliente(rs.getInt(0),
+		 				rs.getString(""),rs.getString(""),rs.getInt(0)),rs.getDouble("precioTotal"),rs.getString("direccionEnvio"),
 		 				rs.getDate("fecha")));
 		 	}
 		 	rs.close();
@@ -94,6 +170,10 @@ public class PedidoDAO {
 		}
 		return lista;
 	 }
+<<<<<<< HEAD
+
+=======
+>>>>>>> branch 'main' of https://github.com/MarioPellicer/Reto3MarioPilar.git
 	public static void insertarPedido(Pedido pedido) {
 		try {
 			Connection con = Conexion.abreConexion();
@@ -118,4 +198,8 @@ public class PedidoDAO {
 			Conexion.cierraConexion();
 		}
 	}
+<<<<<<< HEAD
+
+=======
+>>>>>>> branch 'main' of https://github.com/MarioPellicer/Reto3MarioPilar.git
 }

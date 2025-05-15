@@ -57,8 +57,9 @@ public class Main {
 					ProductoDAO.subirStock(aumento);
 				} break;
 			case 2:
+				int idCliente = Funciones.dimeEntero("introudce un id de un cliente", sc);
 				for (Pedido pedido : PedidoDAO.buscarClienteId(Menu)) {
-					
+					System.out.println(pedido);
 				}
 				break;
 			case 3:
@@ -88,6 +89,7 @@ public class Main {
 							+pedido.getProducto().getCategoria()+","+pedido.getProducto().getNombre()+","+pedido.getUnidades());
 					System.out.println(pedido.getPedido().getCliente().getNombre());
 				} break;
+				
 			default:
 				break;
 			}
