@@ -35,6 +35,7 @@ public class Prueba {
 			}
 		} while (!(nuevoCliente!=null));
 		
+		//añadir productos
 		String nombre = "";
 		do {
 			nombre = Funciones.dimeString("introduce un nombre de un producto ('fin' para terminar)", sc);
@@ -54,10 +55,10 @@ public class Prueba {
 					//añado todo el stock
 					nuevoPedidoProducto.setUnidades(nuevoProducto.getStock());
 				}
+				lista.add(nuevoPedidoProducto);
 			} else {
 				System.out.println("no existe");
 			}
-			lista.add(nuevoPedidoProducto);
 			
 		} while (true);
 		
