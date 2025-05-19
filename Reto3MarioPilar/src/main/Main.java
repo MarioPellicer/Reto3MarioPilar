@@ -63,10 +63,20 @@ public class Main {
 					System.out.println(pedido.getPedido().getFecha()+","+
 							pedido.getPedido().getPrecioTotal()+","+pedido.getPedido().getCliente().getDireccion()+","
 							+pedido.getProducto().getCategoria()+","+pedido.getProducto().getNombre()+","+pedido.getUnidades());
+<<<<<<< HEAD
 				System.out.println(pedido.getPedido().getCliente().getNombre());
 				}
 				for (PedidoProducto pedido : PedidoProductoDAO.buscarClienteId(idCliente)) {
+=======
+					System.out.println(pedido.getPedido().getCliente().getNombre());
+				}
+				for (Pedido pedido : PedidoDAO.buscarClienteId(idCliente)) {
+>>>>>>> branch 'main' of https://github.com/MarioPellicer/Reto3MarioPilar.git
 					System.out.println(pedido);
+<<<<<<< HEAD
+=======
+
+>>>>>>> branch 'main' of https://github.com/MarioPellicer/Reto3MarioPilar.git
 				}
 				break;
 			case 3:
