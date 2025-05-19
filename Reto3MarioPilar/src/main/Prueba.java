@@ -16,13 +16,6 @@ import util.Funciones;
 
 public class Prueba {
 
-	public static void main(String[] args) {
-		
-		Scanner sc = new Scanner(System.in);
-		
-		
-	}
-
 	static void crearPedido(Scanner sc) {
 		Cliente nuevoCliente=null;
 		Producto nuevoProducto=null;
@@ -90,6 +83,11 @@ public class Prueba {
 		pedido.setPrecioTotal(precioTotal);
 		PedidoDAO.insertarPedido(pedido);
 		System.out.println("Pedido guardado. Precio total: " + precioTotal + "€");
+		
+		for (PedidoProducto pedidoProducto : lista) {
+			pedidoProducto.setPedido(pedido);
+			
+		}
 	}
 
 }

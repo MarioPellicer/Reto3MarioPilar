@@ -3,6 +3,7 @@ package dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -95,4 +96,24 @@ public class PedidoProductoDAO {
 		}
 		return lista;
 	 }
+	
+	public static void insertarPedidoProducto(PedidoProducto pedidoProducto) {
+		try {
+			Connection con = Conexion.abreConexion();
+			PreparedStatement pst = con.prepareStatement("INSERT INTO pedidosProducto(idPedido, idProducto, unidades, precio) VALUES (?,?,?,?)",
+					Statement.RETURN_GENERATED_KEYS);
+			pst.setInt(1, pedidoProducto.getPedido().getIdpedido()); 
+			pst.setDouble(2, pedidoProducto.getProducto().getIdproducto()); 
+			pst.setInt(3, pedidoProducto.getUnidades()); 
+			pst.setDouble(4, pedidoProducto.getPrecio()); 
+			pst.execute();
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			Conexion.cierraConexion();
+		}
+	}
 }
