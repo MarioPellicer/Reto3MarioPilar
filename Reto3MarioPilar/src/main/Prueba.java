@@ -19,6 +19,11 @@ public class Prueba {
 	public static void main(String[] args) {
 		
 		Scanner sc = new Scanner(System.in);
+		
+		
+	}
+
+	static void crearPedido(Scanner sc) {
 		Cliente nuevoCliente=null;
 		Producto nuevoProducto=null;
 		Pedido pedido = new Pedido();

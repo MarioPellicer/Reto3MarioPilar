@@ -58,11 +58,16 @@ public class Main {
 				} break;
 			case 2:
 				int idCliente = Funciones.dimeEntero("introudce un id de un cliente", sc);
+<<<<<<< HEAD
 				for (PedidoProducto pedido : PedidoProductoDAO.buscarClienteId(idCliente)) {
 					System.out.println(pedido.getPedido().getFecha()+","+
 							pedido.getPedido().getPrecioTotal()+","+pedido.getPedido().getCliente().getDireccion()+","
 							+pedido.getProducto().getCategoria()+","+pedido.getProducto().getNombre()+","+pedido.getUnidades());
 					System.out.println(pedido.getPedido().getCliente().getNombre());
+=======
+				for (Pedido pedido : PedidoDAO.buscarClienteId(idCliente)) {
+					System.out.println(pedido);
+>>>>>>> branch 'main' of https://github.com/MarioPellicer/Reto3MarioPilar.git
 				}
 				break;
 			case 3:
@@ -83,7 +88,7 @@ public class Main {
 					sc);
 			switch (Menu) {
 			case 1:
-				
+				Prueba.crearPedido(sc);
 				break;
 			case 2:
 				for (PedidoProducto pedido : PedidoProductoDAO.verPedidos()) {
