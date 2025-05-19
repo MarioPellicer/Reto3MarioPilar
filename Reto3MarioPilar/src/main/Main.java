@@ -60,19 +60,16 @@ public class Main {
 				int idCliente = Funciones.dimeEntero("introudce un id de un cliente", sc);
 
 				for (PedidoProducto pedido : PedidoProductoDAO.buscarClienteId(idCliente)) {
-					System.out.println(pedido.getPedido().getFecha()+","+
+					if (pedido!=null) {
+						System.out.println(pedido.getPedido().getFecha()+","+
 							pedido.getPedido().getPrecioTotal()+","+pedido.getPedido().getCliente().getDireccion()+","
 							+pedido.getProducto().getCategoria()+","+pedido.getProducto().getNombre()+","+pedido.getUnidades());
-				System.out.println(pedido.getPedido().getCliente().getNombre());
+					}else {
+						System.out.println("no hay pedidos");
+					}
 				}
-				for (PedidoProducto pedido : PedidoProductoDAO.buscarClienteId(idCliente)) {
-
-					System.out.println(pedido.getPedido().getCliente().getNombre());
-				}
-				for (PedidoProducto pedido : PedidoProductoDAO.buscarClienteId(idCliente)) {
-					System.out.println(pedido);
-
-				}
+					
+			
 				break;
 			case 3:
 				for (PedidoProducto pedidoProducto : PedidoProductoDAO.masUnidades()) {
