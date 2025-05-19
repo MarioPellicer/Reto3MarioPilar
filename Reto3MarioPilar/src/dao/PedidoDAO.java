@@ -5,30 +5,31 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
 import clases.Cliente;
 import clases.Pedido;
 import util.Conexion;
 import util.Funciones;
 
 public class PedidoDAO {
-	public static Pedido verPedidos(Pedido pedido) {
-		 Pedido pedidoNuevo = new Pedido();
+	public static List<Pedido> verPedidos() {
+		 List<Pedido> lista = new ArrayList<Pedido>();
 		 LocalDate ls= LocalDate.now();
 		 ls.getMonth();
 		 try(Connection con = Conexion.abreConexion())		 
 		 {
-		 	PreparedStatement stmt = con.prepareStatement("select * \r\n"
-		 			+"from pedido \r\n "
-		 			+ "inner join pedidoproducto p on pedido.idpedido = p.idpedido" 
-		 			+ " where month(fecha) = month(curdate()); "
-		 			+ "order by (desc)" );
+		 	PreparedStatement stmt = con.prepareStatement("SELECT idPedido, fecha, clientes.nombre, precioTotal, direccionEnvio \r\n"
+		 			+ "FROM pedidos\r\n"
+		 			+ "INNER JOIN clientes ON pedidos.idcliente = clientes.idcliente\r\n"
+		 			+ "where month(fecha) = month(curdate()) \r\n"
+		 			+ "order by pedidos.fecha desc;");
 		 	ResultSet rs = stmt.executeQuery();
-		 	if(rs.next())
+		 	while(rs.next())
 		 	{    
-		 		pedidoNuevo=new Pedido(rs.getInt("idPedido"),new Cliente(),rs.getDouble("precioTotal"),rs.getString("direccionEnvio"),rs.getDate("fecha"));
-		 	}else {
-				return null;
-			}
+		 		lista.add(new Pedido(rs.getInt("idPedido"),new Cliente(0, rs.getString("clientes.nombre"), null, 0),rs.getDouble("precioTotal"),rs.getString("direccionEnvio"),rs.getDate("fecha")));
+		 	}
 		 	rs.close();
 		 }catch (Exception ex){
 		 	ex.printStackTrace();
@@ -36,7 +37,7 @@ public class PedidoDAO {
 		 finally {
 			Conexion.cierraConexion();
 		}
-		return pedidoNuevo;
+		return lista;
 	}
 	public static Pedido buscarCliente(Pedido pedido){
 		 Pedido pedidoNuevo = new Pedido();

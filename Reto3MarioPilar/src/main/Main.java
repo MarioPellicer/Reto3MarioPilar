@@ -95,11 +95,14 @@ public class Main {
 				Prueba.crearPedido(sc);
 				break;
 			case 2:
-				for (PedidoProducto pedido : PedidoProductoDAO.verPedidos()) {
-					System.out.println(pedido.getPedido().getFecha()+","+pedido.getPedido().getCliente().getNombre()+","+
-							pedido.getPedido().getPrecioTotal()+","+pedido.getPedido().getCliente().getDireccion()+","
-							+pedido.getProducto().getCategoria()+","+pedido.getProducto().getNombre()+","+pedido.getUnidades());
-					System.out.println(pedido.getPedido().getCliente().getNombre());
+				
+				for (Pedido pedido : PedidoDAO.verPedidos()) {
+					System.out.println(pedido.getFecha() + ", " + pedido.getCliente().getNombre() + ", " + 
+							pedido.getPrecioTotal() + ", " + pedido.getDireccionEnvio());
+					for (PedidoProducto producto : PedidoProductoDAO.productos(pedido)) {
+						System.out.println(producto.getProducto().getNombre() + ", " + producto.getProducto().getCategoria().getNombre() + ", " + producto.getUnidades());
+					}
+					System.out.println();
 				} break;
 				
 			default:

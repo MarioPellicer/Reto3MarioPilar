@@ -38,118 +38,24 @@ public class PedidoProductoDAO {
 		return lista;
 	}
 
-	
-	
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	public static List<PedidoProducto> verPedidos() {
+	public static List<PedidoProducto> productos(Pedido pedido) {
 		 List<PedidoProducto> lista = new ArrayList<PedidoProducto>();
 		 LocalDate ls= LocalDate.now();
 		 ls.getMonth();
 		 try(Connection con = Conexion.abreConexion())		 
 		 {
-		 	PreparedStatement stmt = con.prepareStatement("select pedidos.fecha,c.nombre as 'nombreCliente',pedidos.precioTotal,pedidos.direccionEnvio,categorias.nombre as 'nombreCategoria',productos.nombre as 'nombreProductos',p.unidades \r\n"
-		 			+"from pedidos \r\n "
-		 			+ "inner join pedidoproducto p on pedidos.idpedido = p.idpedido \r\n" 
+		 	PreparedStatement stmt = con.prepareStatement("select categorias.nombre as 'nombreCategoria',productos.nombre as 'nombreProductos' , p.unidades \r\n"
+		 			+ "from pedidos  \r\n"
+		 			+ "inner join pedidoproducto p on pedidos.idpedido = p.idpedido  \r\n"
 		 			+ "inner join productos on p.idproducto = productos.idproducto \r\n"
-		 			+ " inner join categorias on productos.idcategoria = categorias.idcategoria\r\n"
-		 			+ "inner join clientes c on pedidos.idcliente = c.idcliente"
-		 			+ " where month(fecha) = month(curdate()) "
-		 			+ "order by pedidos.fecha desc" );
+		 			+ "inner join categorias on productos.idcategoria = categorias.idcategoria\r\n"
+		 			+ "where pedidos.idpedido = ?;" );
+		 	stmt.setInt(1, pedido.getIdpedido());
 		 	ResultSet rs = stmt.executeQuery();
 		 	while(rs.next())
 		 	{    
-		 		lista.add(new PedidoProducto(0,new Pedido(0,new Cliente(0,
-		 				rs.getString("nombreCliente"),"",0),rs.getDouble("precioTotal"),rs.getString("direccionEnvio"),
-		 				rs.getDate("fecha")),new Producto(0,new Categoria(0,rs.getString("nombreCategoria")),rs.getString("nombreProductos"),0,"","","",0),
-		 				rs.getInt("unidades"),rs.getDouble("precioTotal")));
+		 		lista.add(new PedidoProducto(0,new Pedido(),new Producto(0,new Categoria(0,rs.getString("nombreCategoria")),rs.getString("nombreProductos"),0,"","","",0),
+		 				rs.getInt("p.unidades"),0));
 		 	}
 		 	rs.close();
 		 }catch (Exception ex){
