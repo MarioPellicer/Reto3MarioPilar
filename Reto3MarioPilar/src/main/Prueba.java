@@ -54,6 +54,7 @@ public class Prueba {
 					//añado todo el stock
 					nuevoPedidoProducto.setUnidades(nuevoProducto.getStock());
 				}
+				
 				lista.add(nuevoPedidoProducto);
 			} else {
 				System.out.println("no existe");

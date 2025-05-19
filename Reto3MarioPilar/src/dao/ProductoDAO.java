@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import clases.Categoria;
+import clases.PedidoProducto;
 import clases.Producto;
 import util.Conexion;
 
@@ -150,6 +151,24 @@ public class ProductoDAO {
 				Connection con = Conexion.abreConexion();
 				PreparedStatement pst = con.prepareStatement("UPDATE productos set stock = stock + ? WHERE stock < 5");
 				pst.setInt(1, num); 
+				pst.executeUpdate();
+							
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			finally {
+				Conexion.cierraConexion();
+			}
+		}
+	}
+	
+	public static void bajarStock(PedidoProducto pProd) {
+		if (pProd.getUnidades() > 0) {
+			try {
+				Connection con = Conexion.abreConexion();
+				PreparedStatement pst = con.prepareStatement("UPDATE productos set stock = stock - ? WHERE idProducto = ?");
+				pst.setInt(1, pProd.getUnidades()); 
+				pst.setInt(2, pProd.getProducto().getIdproducto()); 
 				pst.executeUpdate();
 							
 			} catch (Exception e) {
