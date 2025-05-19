@@ -11,6 +11,7 @@ import clases.PedidoProducto;
 import clases.Producto;
 import dao.ClienteDAO;
 import dao.PedidoDAO;
+import dao.PedidoProductoDAO;
 import dao.ProductoDAO;
 import util.Funciones;
 
@@ -86,7 +87,7 @@ public class Prueba {
 		
 		for (PedidoProducto pedidoProducto : lista) {
 			pedidoProducto.setPedido(pedido);
-			
+			PedidoProductoDAO.insertarPedidoProducto(pedidoProducto);
 		}
 	}
 
