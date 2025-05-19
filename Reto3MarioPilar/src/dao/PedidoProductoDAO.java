@@ -160,4 +160,33 @@ public class PedidoProductoDAO {
 		}
 		return lista;
 	}
+	public static List<PedidoProducto> buscarClienteId(int idCliente){
+		 List<PedidoProducto> lista = new ArrayList<PedidoProducto>();
+		 try(Connection con = Conexion.abreConexion())
+		 {
+		 	PreparedStatement stmt = con.prepareStatement("select pedidos.fecha,pedidos.precioTotal,pedidos.direccionEnvio,productos.nombre as 'nombreProductos',p.unidades,categorias.nombre as 'nombreCategoria' \r\n"
+		 			+"from clientes \r\n " 
+		 			+"inner join pedidos on clientes.idcliente = pedidos.idcliente \r\n"
+		 			+ "inner join pedidoproducto p on pedidos.idpedido = p.idpedido \r\n" 
+		 			+ "inner join productos on p.idproducto = productos.idproducto \r\n"
+		 			+ "inner join categorias on productos.idcategoria = categorias.idcategoria \r\n"
+		 			+"where clientes.idCliente=?  \r\n " );
+		 	stmt.setInt(1, idCliente);
+		 	ResultSet rs = stmt.executeQuery();
+		 	while(rs.next())
+		 	{    
+		 		lista.add(new PedidoProducto(0,new Pedido(0,new Cliente(0,
+		 				"","",0),rs.getDouble("pedidos.precioTotal"),rs.getString("pedidos.direccionEnvio"),
+		 				rs.getDate("pedidos.fecha")),new Producto(0,new Categoria(0,rs.getString("nombreCategoria")),rs.getString("nombreProductos"),0,"","","",0),
+		 				rs.getInt("p.unidades"),rs.getDouble("pedidos.precioTotal")));
+		 	}
+		 	rs.close();
+		 }catch (Exception ex){
+		 	ex.printStackTrace();
+		 }
+		 finally {
+			Conexion.cierraConexion();
+		}
+		return lista;
+	 }
 }

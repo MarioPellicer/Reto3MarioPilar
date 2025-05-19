@@ -5,9 +5,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-
 import clases.Cliente;
 import clases.Pedido;
 import util.Conexion;
@@ -66,36 +63,7 @@ public class PedidoDAO {
 		}
 		return pedidoNuevo;
 	 }
-	
 
-	public static List<Pedido> buscarClienteId(int idCliente){
-		 List<Pedido> lista = new ArrayList<Pedido>();
-		 try(Connection con = Conexion.abreConexion())
-		 {
-		 	PreparedStatement stmt = con.prepareStatement("select pedidos.fecha,pedidos.precioTotal,pedidos.direccionEnvio,productos.nombre as 'nombreProductos',p.unidades \r\n"
-		 			+"from clientes \r\n " 
-		 			+"inner join pedidos on clientes.idcliente = pedidos.idcliente \r\n"
-		 			+ "inner join pedidoproducto p on pedidos.idpedido = p.idpedido \r\n" 
-		 			+ "inner join productos on p.idproducto = productos.idproducto \r\n"
-		 			+ "inner join clientes c on pedidos.idcliente = c.idcliente"
-		 			+"where clientes.idCliente=?  \r\n " );
-		 	stmt.setInt(1, idCliente);
-		 	ResultSet rs = stmt.executeQuery();
-		 	while(rs.next())
-		 	{    
-		 		lista.add(new Pedido(rs.getInt(0),new Cliente(rs.getInt(0),
-		 				rs.getString(""),rs.getString(""),rs.getInt(0)),rs.getDouble("precioTotal"),rs.getString("direccionEnvio"),
-		 				rs.getDate("fecha")));
-		 	}
-		 	rs.close();
-		 }catch (Exception ex){
-		 	ex.printStackTrace();
-		 }
-		 finally {
-			Conexion.cierraConexion();
-		}
-		return lista;
-	 }
 
 	public static void insertarPedido(Pedido pedido) {
 		try {
