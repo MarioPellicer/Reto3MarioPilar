@@ -23,11 +23,12 @@ public class PedidoProductoDAO {
 		List<PedidoProducto> lista = new ArrayList<PedidoProducto>();
 		try {
 			Connection con = Conexion.abreConexion();
-			PreparedStatement pst = con.prepareStatement("SELECT idproducto, sum(unidades) FROM pedidoproducto group by idProducto having sum(unidades) = (\r\n"
+			PreparedStatement pst = con.prepareStatement("SELECT productos.nombre, sum(unidades) FROM pedidoproducto "
+					+ "INNER JOIN productos ON pedidoproducto.idproducto = productos.idproducto group by nombre having sum(unidades) = (\r\n"
 					+ "SELECT sum(unidades) FROM pedidoproducto group by idProducto order by sum(unidades) desc limit 1)");
 			ResultSet rs = pst.executeQuery();
 			while(rs.next()) {
-				lista.add(new PedidoProducto(0, null, new Producto(rs.getInt("idProducto"), null, null, 0, null, null, null, 0), rs.getInt("sum(unidades)"), 0));
+				lista.add(new PedidoProducto(0, null, new Producto(0, null, rs.getString("nombre"), 0, null, null, null, 0), rs.getInt("sum(unidades)"), 0));
 			}
 			rs.close();
 			

@@ -51,7 +51,7 @@ public class PedidoProducto {
 	}
 	@Override
 	public String toString() {
-		return producto.getIdproducto()	+ ", " + unidades + " unidades";
+		return producto.getNombre()	+ ", " + unidades + " unidades";
 	}
 	
 	public void calcularPrecio() {

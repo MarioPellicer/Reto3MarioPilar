@@ -19,7 +19,7 @@ public class Main {
 		int opcion = -1;
 		do {
 			opcion = Funciones.dimeEntero(
-					"introduce la opcion que deseas elegir: \n1-Mantenimiento \n2-Catalogo de Productos \n3-Pedidos \n4-Informes \n0-salir",
+					"\nIntroduce la opción que deseas elegir: \n1-Mantenimiento \n2-Catálogo de Productos \n3-Pedidos \n4-Informes \n0-Salir",
 					sc);
 			switch (opcion) {
 			case 1:
@@ -46,30 +46,32 @@ public class Main {
 		int Menu=-1;
 		do {
 			Menu = Funciones.dimeEntero(
-					"introduce la opcion que deseas elegir: \n1-Bajo stock \n2-Pedidos por cliente \n3-Productos mas vendidos \n0-salir",
+					"\nIntroduce la opción que deseas elegir: \n1-Bajo stock \n2-Pedidos por cliente \n3-Productos más vendidos \n0-Salir",
 					sc);
 			switch (Menu) {
 			case 1:
+				if (ProductoDAO.bajoStock().size() == 0) {
+					System.out.println("No hay productos con bajo stock");
+				} 
 				for (Producto producto : ProductoDAO.bajoStock()) {
 					System.out.println(producto);
-				} int aumento = Funciones.dimeEntero("¿En cuántas unidades quieres aumentar estos productos?", sc);
-				if (aumento > 0) {
-					ProductoDAO.subirStock(aumento);
-				} break;
-			case 2:
-				int idCliente = Funciones.dimeEntero("introudce un id de un cliente", sc);
-
-				for (PedidoProducto pedido : PedidoProductoDAO.buscarClienteId(idCliente)) {
-					if (pedido!=null) {
-						System.out.println(pedido.getPedido().getFecha()+","+
-							pedido.getPedido().getPrecioTotal()+","+pedido.getPedido().getCliente().getDireccion()+","
-							+pedido.getProducto().getCategoria()+","+pedido.getProducto().getNombre()+","+pedido.getUnidades());
-					}else {
-						System.out.println("no hay pedidos");
-					}
+					int aumento = Funciones.dimeEntero("¿En cuántas unidades quieres aumentar este productos?", sc);
+					if (aumento > 0) {
+						ProductoDAO.subirStock(aumento, producto);
+					} 
 				}
-					
-			
+				break;
+			case 2:
+				int idCliente = Funciones.dimeEntero("Introduce un código de un cliente", sc);
+
+				int i = 0;
+				for (PedidoProducto pedido : PedidoProductoDAO.buscarClienteId(idCliente)) {
+					System.out.println(pedido.getPedido() + ", " + pedido.getProducto().getCategoria().getNombre() + 
+						", " + pedido.getProducto().getNombre() + ", " + pedido.getUnidades() + " unidades");
+					i++;
+				} if (i == 0) {
+					System.out.println("No existe cliente");
+				}
 				break;
 			case 3:
 				for (PedidoProducto pedidoProducto : PedidoProductoDAO.masUnidades()) {
@@ -85,7 +87,7 @@ public class Main {
 		int Menu=-1;
 		do {
 			Menu = Funciones.dimeEntero(
-					"introduce la opcion que deseas elegir: \n1-Crear Pedidos \n2- Ver pedidos \n0-salir",
+					"\nIntroduce la opción que deseas elegir: \n1-Crear Pedidos \n2-Ver pedidos \n0-Salir",
 					sc);
 			switch (Menu) {
 			case 1:
@@ -94,7 +96,7 @@ public class Main {
 			case 2:
 				
 				for (Pedido pedido : PedidoDAO.verPedidos()) {
-					System.out.println(pedido.getFecha() + ", " + pedido.getCliente().getNombre() + ", " + 
+					System.out.println(Funciones.convierte_Date_a_String(pedido.getFecha()) + ", " + pedido.getCliente().getNombre() + ", " + 
 							pedido.getPrecioTotal() + ", " + pedido.getDireccionEnvio());
 					for (PedidoProducto producto : PedidoProductoDAO.productos(pedido)) {
 						System.out.println(producto.getProducto().getNombre() + ", " + producto.getProducto().getCategoria().getNombre() + ", " + producto.getUnidades());
@@ -112,7 +114,7 @@ public class Main {
 		int Menu=-1;
 		do {
 			Menu = Funciones.dimeEntero(
-					"introduce la opcion que deseas elegir: \n1-Listar Productos por categoria \n2-Buscar Productos \n0-salir",
+					"\nIntroduce la opción que deseas elegir: \n1-Listar Productos por categoría \n2-Buscar Productos \n0-Salir",
 					sc);
 			switch (Menu) {
 			case 1:
@@ -125,13 +127,15 @@ public class Main {
 					System.out.println(prod);
 					}
 				} else {
-					System.out.println("No hay categoria con idCategoria = " + idCat);
+					System.out.println("No hay categoría con idCategoria = " + idCat);
 				}
 				
 				break;
 			case 2:
 				
-				Producto producto = new Producto(0, null, ProductoDAO.dimeString("Introduce un nombre (enter para no buscar por nombre)", sc), 0, null, ProductoDAO.dimeString("Introduce un color (enter para no buscar por color)", sc), ProductoDAO.dimeString("Introduce una talla (enter para no buscar por talla)", sc), 0);
+				Producto producto = new Producto(0, null, ProductoDAO.dimeString("Introduce un nombre (enter para no buscar por nombre)", sc), 
+						0, null, ProductoDAO.dimeString("Introduce un color (enter para no buscar por color)", sc), 
+						ProductoDAO.dimeString("Introduce una talla (enter para no buscar por talla)", sc), 0);
 
 				for (Producto prod : ProductoDAO.buscar(producto)) {
 					System.out.println(prod);
@@ -147,13 +151,12 @@ public class Main {
 		int Menu=-1,subMenu=-1;
 		do {
 			Menu = Funciones.dimeEntero(
-					"introduce la opcion que deseas elegir: \n1-Gestion de categorias \n2-Gestion de productos \n3-Gestion de clientes \n0-salir",
+					"\nIntroduce la opción que deseas elegir: \n1-Gestión de categorías \n2-Gestión de productos \n3-Gestión de clientes \n0-Salir",
 					sc);
 			switch (Menu) {
 			case 1:
 				Categoria nuevaCate = new Categoria();
-				System.out.println("Indica el nombre de la nueva categoria");
-				String Nombre = sc.nextLine();
+				String Nombre = Funciones.dimeString("Indica el nombre de la nueva categoría", sc);
 				nuevaCate.setNombre(Nombre);
 				CategoriaDAO.gestionCategorias(nuevaCate);
 				break;
@@ -163,32 +166,51 @@ public class Main {
 				for (Categoria categoria : CategoriaDAO.listaCategoria()) {
 					System.out.println(categoria);
 				}
-				Producto producto = new Producto(0, new Categoria(Funciones.dimeEntero("introduce un id de la categoria", sc), null), Funciones.dimeString("Nombre:", sc), Funciones.dimeDouble("Precio:", sc), 
-										Funciones.dimeString("Descripcion:", sc), Funciones.dimeString("Talla:", sc), Funciones.dimeString("Color:", sc), Funciones.dimeEntero("Stock:", sc));
+				
+				Categoria cat = null;
+				do {
+					cat = new Categoria(Funciones.dimeEntero("Introduce un id de la categoría", sc), null) ;
+				} while (!CategoriaDAO.listaCategoria().contains(cat));
+				
+				Producto producto = new Producto(0, cat, Funciones.dimeString("Nombre:", sc), Funciones.dimeDouble("Precio:", sc), 
+						Funciones.dimeString("Descripción:", sc), Funciones.dimeString("Talla:", sc), Funciones.dimeString("Color:", sc), Funciones.dimeEntero("Stock:", sc));
 				ProductoDAO.insertarProducto(producto);
+				
+				
 				break;
 			case 3:
 				Cliente nuevoCliente=null;
 				do {
 					subMenu = Funciones.dimeEntero(
-							"introduce la opcion que deseas elegir: \n1-Alta de nuevos \n2-Busqueda por codigo \n0-salir",
+							"\nIntroduce la opción que deseas elegir: \n1-Alta de nuevos \n2-Búsqueda por código \n0-Salir",
 							sc);
 					switch (subMenu) {
 					case 1:
-						 nuevoCliente = new Cliente(Funciones.dimeString("introduce un nombre para un nnuevo cliente", sc),
-								Funciones.dimeString("introduce una direccion para un nuevo cliente", sc),Funciones.dimeEntero("introduce un codigo para un nuevo cliente", sc));
+						int cod = -1;
+						do {
+							cod = Funciones.dimeEntero("Introduce un código para un nuevo cliente", sc);
+						} while (cod < 0 || ClienteDAO.buscarCliente(cod) != null);
+						nuevoCliente = new Cliente(Funciones.dimeString("Introduce un nombre para un nuevo cliente", sc),
+								Funciones.dimeString("Introduce una dirección para un nuevo cliente", sc), cod);
 						ClienteDAO.altaDeNuevos(nuevoCliente);
 						break;
 					case 2:
-						int codigo = Funciones.dimeEntero("introduce un codigo de un cliente", sc);
+						int codigo = Funciones.dimeEntero("Introduce un código de un cliente", sc);
 						 nuevoCliente = ClienteDAO.buscarCliente(codigo);
 						 if (nuevoCliente!=null) {
 							System.out.println(nuevoCliente);
-							nuevoCliente = new Cliente(Funciones.dimeString("introduce un nombre para un nuevo cliente", sc),
-									Funciones.dimeString("introduce una direccion para un nuevo cliente", sc),Funciones.dimeEntero("introduce un codigo para un nuevo cliente", sc));
+							int codi = -1;
+							do {
+								codi = Funciones.dimeEntero("Introduce un código para un nuevo cliente", sc);
+								if (codi == nuevoCliente.getCodigo()) {
+									break;
+								}
+							} while (codi < 0 || ClienteDAO.buscarCliente(codi) != null);
+							nuevoCliente = new Cliente(Funciones.dimeString("Introduce un nombre para un nuevo cliente", sc),
+									Funciones.dimeString("Introduce una dirección para un nuevo cliente", sc),codi);
 							ClienteDAO.actualizaCliente(nuevoCliente,codigo);
 						}else {
-							System.out.println("el codgo no existe");
+							System.out.println("El código no existe");
 						}
 						break;
 					default:

@@ -145,12 +145,13 @@ public class ProductoDAO {
 		return lista;		
 	}
 	
-	public static void subirStock(int num) {
+	public static void subirStock(int num, Producto prod) {
 		if (num > 0) {
 			try {
 				Connection con = Conexion.abreConexion();
-				PreparedStatement pst = con.prepareStatement("UPDATE productos set stock = stock + ? WHERE stock < 5");
+				PreparedStatement pst = con.prepareStatement("UPDATE productos set stock = stock + ? WHERE idProducto = ?");
 				pst.setInt(1, num); 
+				pst.setInt(2, prod.getIdproducto()); 
 				pst.executeUpdate();
 							
 			} catch (Exception e) {

@@ -55,6 +55,7 @@ public class Prueba {
 					nuevoPedidoProducto.setUnidades(nuevoProducto.getStock());
 				}
 				
+				
 				lista.add(nuevoPedidoProducto);
 			} else {
 				System.out.println("no existe");
@@ -89,6 +90,7 @@ public class Prueba {
 		for (PedidoProducto pedidoProducto : lista) {
 			pedidoProducto.setPedido(pedido);
 			PedidoProductoDAO.insertarPedidoProducto(pedidoProducto);
+			ProductoDAO.bajarStock(pedidoProducto);
 		}
 	}
 
