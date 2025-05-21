@@ -70,7 +70,7 @@ public class Main {
 						", " + pedido.getProducto().getNombre() + ", " + pedido.getUnidades() + " unidades");
 					i++;
 				} if (i == 0) {
-					System.out.println("No existe cliente");
+					System.out.println("No existen pedidos hechos por ese cliente");
 					
 				}
 				break;
@@ -123,10 +123,16 @@ public class Main {
 					System.out.println(categoria);
 				}	
 				int idCat = Funciones.dimeEntero("Elige una categoría por su id", sc);
+				
+				int cont = 0;
 				if (CategoriaDAO.buscarCategoria(idCat) != null) {
 					for (Producto prod : ProductoDAO.selectCategoria(idCat)) {
 					System.out.println(prod);
+					cont++;
 					}
+				if (cont == 0) {
+					System.out.println("No hay productos");
+				}
 				} else {
 					System.out.println("No hay categoría con idCategoria = " + idCat);
 				}
@@ -137,10 +143,11 @@ public class Main {
 				Producto producto = new Producto(0, null, ProductoDAO.dimeString("Introduce un nombre (enter para no buscar por nombre)", sc), 
 						0, null, ProductoDAO.dimeString("Introduce un color (enter para no buscar por color)", sc), 
 						ProductoDAO.dimeString("Introduce una talla (enter para no buscar por talla)", sc), 0);
-
+				
 				for (Producto prod : ProductoDAO.buscar(producto)) {
 					System.out.println(prod);
 				}
+				
 				break;
 			default:
 				break;
