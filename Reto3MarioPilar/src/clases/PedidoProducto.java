@@ -7,10 +7,21 @@ public class PedidoProducto {
 	private Producto producto;
 	private int unidades;
 	private double precio;
+	/**
+	 * constructor vacio
+	 */
 	public PedidoProducto() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	/**
+	 * constructor de la clase PedidoProducto con idPedidoProducto,pedido,producto,unidades,precio.
+	 * @param idPedidoProducto int
+	 * @param pedido Pedido
+	 * @param producto Producto
+	 * @param unidades int
+	 * @param precio double
+	 */
 	public PedidoProducto(int idPedidoProducto, Pedido pedido, Producto producto, int unidades, double precio) {
 		super();
 		this.idPedidoProducto = idPedidoProducto;
@@ -51,7 +62,7 @@ public class PedidoProducto {
 	}
 	@Override
 	public String toString() {
-		return producto.getIdproducto()	+ ", " + unidades + " unidades";
+		return producto.getNombre()	+ ", " + unidades + " unidades";
 	}
 	
 	public void calcularPrecio() {

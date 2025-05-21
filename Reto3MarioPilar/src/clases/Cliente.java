@@ -1,6 +1,7 @@
 package clases;
 
 public class Cliente {
+
 private int idcliente;
 private String nombre;
 private String direccion;
@@ -97,5 +98,7 @@ public String toString() {
 	return "Cliente [idCliente=" + idcliente + ", nombre=" + nombre + ", direccion=" + direccion + ", codigo=" + codigo
 			+ "]";
 }
+
+
 
 }

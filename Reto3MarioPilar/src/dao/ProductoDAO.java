@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import clases.Categoria;
+import clases.PedidoProducto;
 import clases.Producto;
 import util.Conexion;
 
@@ -68,9 +69,13 @@ public class ProductoDAO {
 		}
 		return lista;
 	}
-	/*	pidiendo nombres de
-	productos. Buscamos en la base de datos si hay alg�n producto con ese nombre y si existe, pediremos
-	cu�ntas unidades queremos de ese producto.*/
+	/**
+	 * pidiendo nombres de productos. 
+	 * Buscamos en la base de datos si hay algun producto con ese nombre y si existe, pediremos 
+	 * cuantas unidades queremos de ese producto.
+	 * @param nombre String 
+	 * @return nuevoProducto 
+	 */
 	public static Producto selectNombre(String nombre) {
 		Producto nuevoProducto=null;
 		try {
@@ -91,12 +96,17 @@ public class ProductoDAO {
 		}
 		return nuevoProducto;
 	}
-	/*pediremos por consola un nombre, una talla y un color. El usuario puede no
-	introducir nada en alguna de esas preguntas (pulsa intro sin escribir nada). Buscaremos los productos
-	que cumplan el filtro introducido y los mostraremos por consola. Ejemplo: si introduce sólo nombre,
-	buscaremos los que tengan ese nombre contenido, no tiene que ser igual (usamos % en el valor del
-	argumento que pasamos, no en el ?). Si introducen sólo en talla y color, los que tengan esa talla y ese
-	color.*/
+	/**
+	 * pediremos por consola un nombre, una talla y un color. El usuario puede no
+	* introducir nada en alguna de esas preguntas (pulsa intro sin escribir nada). Buscaremos los productos
+	* que cumplan el filtro introducido y los mostraremos por consola. Ejemplo: si introduce solo el nombre,
+	* buscaremos los que tengan ese nombre contenido, no tiene que ser igual (usamos % en el valor del
+	* argumento que pasamos, no en el ?). Si introducen solo en talla y color, los que tengan esa talla y ese
+	* color.
+	 * @param producto Producto 
+	 * @return lista de productos 
+	 */
+	/**/
 	public static List<Producto> buscar (Producto producto) {
 		List<Producto> lista = new ArrayList<Producto>();
 		try {
@@ -118,11 +128,13 @@ public class ProductoDAO {
 		}
 		return lista;
 	}
-	
-	/*se mostrarán los productos cuyo stock sea menor de 5. Se pedirá por consola en cuántas
-	unidades queremos aumentarlo y actualizaremos el stock en la BD. Pero sólo se aumentarán los que
-	tengan stock menor de 5, no todos. Validar que la cantidad de stock a aumentar es mayor o igual de 0. Si es
-	cero no actualizar nada.*/
+	/**
+	 * se mostraran los productos cuyo stock sea menor de 5. Se pedira por consola en cuantas
+	 * unidades queremos aumentarlo y actualizaremos el stock en la BD. Pero solo se aumentaran los que
+	 * tengan stock menor de 5, no todos. Validar que la cantidad de stock a aumentar es mayor o igual de 0. Si es
+	 * cero no actualizar nada.
+	 * @return lista de productos con bajo stock
+	 */
 	public static List<Producto> bajoStock() {
 		List<Producto> lista = new ArrayList<Producto>();
 		try {
@@ -144,12 +156,31 @@ public class ProductoDAO {
 		return lista;		
 	}
 	
-	public static void subirStock(int num) {
+	public static void subirStock(int num, Producto prod) {
 		if (num > 0) {
 			try {
 				Connection con = Conexion.abreConexion();
-				PreparedStatement pst = con.prepareStatement("UPDATE productos set stock = stock + ? WHERE stock < 5");
+				PreparedStatement pst = con.prepareStatement("UPDATE productos set stock = stock + ? WHERE idProducto = ?");
 				pst.setInt(1, num); 
+				pst.setInt(2, prod.getIdproducto()); 
+				pst.executeUpdate();
+							
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			finally {
+				Conexion.cierraConexion();
+			}
+		}
+	}
+	
+	public static void bajarStock(PedidoProducto pProd) {
+		if (pProd.getUnidades() > 0) {
+			try {
+				Connection con = Conexion.abreConexion();
+				PreparedStatement pst = con.prepareStatement("UPDATE productos set stock = stock - ? WHERE idProducto = ?");
+				pst.setInt(1, pProd.getUnidades()); 
+				pst.setInt(2, pProd.getProducto().getIdproducto()); 
 				pst.executeUpdate();
 							
 			} catch (Exception e) {

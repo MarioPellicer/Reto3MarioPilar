@@ -51,5 +51,14 @@ public class Categoria {
 		return idCategoria + " - " + nombre;
 	}
 	
-	
+	@Override
+	public boolean equals(Object obj) {
+		if(obj instanceof Categoria)
+		{
+			Categoria per = (Categoria)obj;
+			if(per.getIdCategoria() == this.idCategoria)
+				return true;
+		}
+		return false;
+	}
 }

@@ -77,7 +77,7 @@ public class Producto {
 	}
 	@Override
 	public String toString() {
-		return idproducto + " - " + nombre + ", " + precio + ", " + color + ", " + talla + ". " + stock + " en stock";
+		return idproducto + " - " + nombre + ", " + precio + ", " + color + ", " + talla + ", " + stock + " en stock";
 	}
 	
 }

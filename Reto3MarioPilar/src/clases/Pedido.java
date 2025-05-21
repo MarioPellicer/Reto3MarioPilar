@@ -1,9 +1,14 @@
 package clases;
 
 import java.util.Date;
+
 /**
  * @author pilarmario 
  */
+
+
+import util.Funciones;
+
 public class Pedido {
 private int idpedido;
 private Cliente cliente;
@@ -92,8 +97,7 @@ public void setFecha(Date fecha) {
 }
 @Override
 public String toString() {
-	return "Pedido [idpedido=" + idpedido + ", cliente=" + cliente + ", precioTotal=" + precioTotal
-			+ ", direccionEnvio=" + direccionEnvio + ", fecha=" + fecha + "]";
+	return Funciones.convierte_Date_a_String(fecha) + ", " + precioTotal + ", " + direccionEnvio;
 }
 
 }
